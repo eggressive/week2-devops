@@ -1,12 +1,23 @@
 version: "3.7"
 services:
   web1:
-    build: ./quote_gen
+    image: eggressive/quote-gen-service
+    deploy:
+      replicas: 2
     ports:
-      - "5000"
+      - "5000:5000"
+    networks:
+      - quote-network
   web2:
-    build: ./quote_disp
+    image: eggressive/quote-disp-service
+    deploy:
+      replicas: 2
     ports:
-      - "5001"
+      - "5001:5001"
     depends_on:
       - web1
+    networks:
+      - quote-network
+
+networks:
+  quote-network:
