@@ -2,7 +2,7 @@ import pytest
 from flask import Flask, render_template, jsonify
 from unittest.mock import patch
 
-from ..app import app
+from app import app
 
 @pytest.fixture
 def client():
