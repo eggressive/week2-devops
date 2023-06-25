@@ -2,7 +2,7 @@ import random
 from flask import Flask
 import pytest
 
-from ..app import app
+from app import app
 
 
 @pytest.fixture
