@@ -1,0 +1,44 @@
+name: test
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'quote_disp/**'
+  pull_request:
+    branches:
+      - "*"
+    paths:
+        - 'quote_disp/**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Add Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.x"
+
+      - name: Upgrade pip
+        run: |
+          python -m pip install --upgrade pip
+          
+      - name: Install Dependencies
+        run: |
+          python -m pip install -r quote_disp/requirements.txt
+          python -m pip install -r quote_gen/requirements.txt
+          pip install flake8 pytest pytest-cov pytest-mock beautifulsoup4
+      - name: quote_disp tests
+        run: |
+          cd quote_disp
+          python -m pytest -v tests
+      - name: quote_gen tests
+        run: |
+          cd quote_gen
+          python -m pytest -v tests
